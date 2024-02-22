@@ -16,7 +16,7 @@ while True:
         request_parts = request.split()
         method = request_parts[0]
         filename = request_parts[1][1:]
-
+        
         if not os.path.exists(filename):
             print("Response to client: 404 Not Found")
             response= "HTTP/1.1 404 Not Found\n\n<h1>404 Not Found</h1>"
