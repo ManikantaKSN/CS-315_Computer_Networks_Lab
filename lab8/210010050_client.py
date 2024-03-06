@@ -9,7 +9,7 @@ userPassword = "lmvgusmmhxkmzoti"
 userDestinationEmail = input("Enter Email Destination: ")
 userSubject = input("Enter Subject: ")
 userBody = input("Enter Message: ")
-msg = f'Subject: {userSubject}\r\n{userBody}.\r\n Regards!'
+msg = '{}.\r\n I love computer networks!'.format(userBody)
 
 
 # Choose a mail server (e.g. Google mail server) and call it mailserver
@@ -28,7 +28,7 @@ clientSocket.connect((mailserver, 587))
 recv = clientSocket.recv(1024).decode()
 print(recv)
 if recv[:3] != '220': 
-	print('220 reply not received from server.')
+	print('220 reply not received from server.') 
 
 # Send HELO command and print server response.
 heloCommand = 'HELO Alice\r\n'
@@ -37,7 +37,6 @@ recv1 = clientSocket.recv(1024).decode()
 print(recv1)
 if recv1[:3] != '250':
 	print('250 reply not received from server.')
-	sys.exit(0)
 
 #account authentication
 clientSocket.send("STARTTLS\r\n".encode())
