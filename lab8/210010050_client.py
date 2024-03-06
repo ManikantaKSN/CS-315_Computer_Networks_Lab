@@ -1,3 +1,4 @@
+#importing all required libraries
 from socket import *
 from base64 import *
 import sys
@@ -9,21 +10,20 @@ userPassword = "lmvgusmmhxkmzoti"
 userDestinationEmail = input("Enter Email Destination: ")
 userSubject = input("Enter Subject: ")
 userBody = input("Enter Message: ")
-msg = '{}.\r\n I love computer networks!'.format(userBody)
-
+# msg = '{}.\r\n I love computer networks!'.format(userBody)
+# Modifying above line to include subject
+msg = f'Subject: {userSubject}\r\n\r\n{userBody}.\r\n I love computer networks!'
 
 # Choose a mail server (e.g. Google mail server) and call it mailserver
 #Fill in start
 mailserver = "smtp.gmail.com"
 #Fill in end
 
-
 # Create socket called clientSocket and establish a TCP connection with mailserver
 #Fill in start
 clientSocket = socket(AF_INET, SOCK_STREAM)
 clientSocket.connect((mailserver, 587))
 #Fill in end
-
 
 recv = clientSocket.recv(1024).decode()
 print(recv)
@@ -52,8 +52,8 @@ print(sslClientSocket.recv(1024))
 
 # Send MAIL FROM command and print server response.
 #Fill in start
-mailFrom = f"MAIL FROM: <{userEmail}>\r\n"
-sslClientSocket.send(mailFrom.encode())
+mail_from = f"MAIL FROM: <{userEmail}>\r\n"
+sslClientSocket.send(mail_from.encode())
 recv1 = sslClientSocket.recv(1024).decode() 
 print(recv1)
 if recv1[:3] != '250':
@@ -64,8 +64,8 @@ if recv1[:3] != '250':
 
 # Send RCPT TO command and print server response.
 #Fill in start
-rcptTo = f"RCPT TO: <{userDestinationEmail}>\r\n"
-sslClientSocket.send(rcptTo.encode())
+rcpt_to = f"RCPT TO: <{userDestinationEmail}>\r\n"
+sslClientSocket.send(rcpt_to.encode())
 recv1 = sslClientSocket.recv(1024).decode() 
 print(recv1)
 if recv1[:3] != '250':
@@ -76,8 +76,8 @@ if recv1[:3] != '250':
 
 # Send DATA command and print server response.
 #Fill in start
-dataCMD = "DATA\r\n"
-sslClientSocket.send(dataCMD.encode())
+data_command = "DATA\r\n"
+sslClientSocket.send(data_command.encode())
 recv1 = sslClientSocket.recv(1024).decode() 
 print(recv1)
 if recv1[:3] != '354':
@@ -105,8 +105,8 @@ if recv1[:3] != '250':
 
 # Send QUIT command and get server response.
 #Fill in start
-quitCMD = "QUIT\r\n"
-sslClientSocket.send(quitCMD.encode())
+quit_command = "QUIT\r\n"
+sslClientSocket.send(quit_command.encode())
 recv1 = sslClientSocket.recv(1024).decode() 
 print(recv1)
 clientSocket.close()
